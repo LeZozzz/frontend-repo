@@ -10,14 +10,32 @@
 
 <body>
     <header>
-        <h1>Détails du Film</h1>
+        <div class="header-container">
+            <a href="index.html">
+                <img src="assets/adopteunfilm.png" alt="Logo" class="logo">
+            </a>
+            <a href="index.html">
+                <img src="assets/logotitre.png" alt="Deuxième Logo" class="logo logo-second">
+            </a>
+        </div>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Rechercher un film..." autocomplete="off">
+            <button type="submit">Rechercher</button>
+        </form>
     </header>
-    <main id="movie-details" class="movie-details">
-        <!-- Les infos du film seront injectées ici -->
+
+    <main>
+        <section id="recommendations">
+            <div id="movie-details" class="movie-details">
+                <!-- Les infos du film seront injectées ici -->
+            </div>
+        </section>
     </main>
+
     <footer>
-        <p>&copy; 2024 Movie Recommendation System</p>
+        <p>&copy; 2025 AdopteUnFilm</p>
     </footer>
+
     <script src="js/details.js"></script>
 </body>
 

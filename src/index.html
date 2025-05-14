@@ -12,8 +12,12 @@
 <body>
     <header>
         <div class="header-container">
-            <img src="assets/adopteunfilm.png" alt="Logo" class="logo">
-            <img src="assets/logotitre.png" alt="Deuxième Logo" class="logo logo-second">
+            <a href="index.html">
+                <img src="assets/adopteunfilm.png" alt="Logo" class="logo">
+            </a>
+            <a href="index.html">
+                <img src="assets/logotitre.png" alt="Deuxième Logo" class="logo logo-second">
+            </a>
         </div>
         <form id="search-form">
             <input type="text" id="search-input" placeholder="Rechercher un film..." autocomplete="off">
@@ -22,18 +26,14 @@
     </header>
 
     <main>
-        <section id="recommendations">
+        <section id="welcome-section">
+            <h2>Bienvenue sur AdopteUnFilm !</h2>
+            <p>Recherchez un film pour découvrir ses détails et nos recommandations.</p>
+        </section>
+        <section id="recommendations" style="display:none;">
             <h2 id="search-result-title">Résultats trouvés pour :</h2>
-            <script>
-                document.getElementById('search-form').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const query = document.getElementById('search-input').value.trim();
-                    document.getElementById('search-result-title').textContent = query
-                        ? `Résultats trouvés pour : "${query}"`
-                        : 'Résultats trouvés pour :';
-                });
-            </script>
             <div id="movie-list" class="movie-grid">
+                <!-- Les vignettes de films seront insérées ici dynamiquement -->
             </div>
         </section>
     </main>

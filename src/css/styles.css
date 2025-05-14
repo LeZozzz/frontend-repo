@@ -1,10 +1,18 @@
-/* css/styles.css */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     background-color: #212121;
     color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -86,6 +94,7 @@ button:hover {
 
 main {
     padding: 2rem;
+    flex: 1;
 }
 
 .movie-grid {
@@ -129,21 +138,81 @@ main {
 }
 
 footer {
-    background-color: #f50057;
+    background: #f50057;
+    color: #212121;
     text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
+    padding: 16px 0;
+    margin-top: auto;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .movie-details {
-    padding: 2rem;
     display: flex;
-    justify-content: center;
+    align-items: flex-start;
+    gap: 32px;
+    background: #333;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    padding: 32px;
+    margin: 32px auto;
+    max-width: 900px;
 }
 
-.movie-details .movie-card {
+.movie-details img {
+    width: 300px;
+    height: 445px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+    background: #eee;
+}
+
+.movie-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.movie-info h2 {
+    margin: 0 0 12px 0;
+    font-size: 2.2rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.movie-info p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.movie-info strong {
+    color: #1a7ec7;
+}
+
+/* Pour la section de bienvenue sur la page d'accueil */
+#welcome-section {
+    text-align: center;
+    margin: 60px 0 40px 0;
+    padding: 32px 16px;
+    background: #f0f6fb;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(26, 126, 199, 0.06);
     max-width: 600px;
-    background-color: #333;
-    padding: 1.5rem;
-    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#welcome-section h2 {
+    font-size: 2.3rem;
+    color: #1a7ec7;
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+#welcome-section p {
+    font-size: 1.18rem;
+    color: #333;
+    margin: 0;
 }
