@@ -99,7 +99,7 @@ main {
 
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-auto-rows: auto;
     gap: 1.5rem;
     margin-top: 2rem;
@@ -143,7 +143,13 @@ footer {
     text-align: center;
     padding: 16px 0;
     margin-top: auto;
+}
+
+footer p {
+    margin-left: 10px;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
 }
 
 .movie-details {
@@ -194,11 +200,6 @@ footer {
 /* Pour la section de bienvenue sur la page d'accueil */
 #welcome-section {
     text-align: center;
-    margin: 60px 0 40px 0;
-    padding: 32px 16px;
-    background: #f0f6fb;
-    border-radius: 18px;
-    box-shadow: 0 2px 16px rgba(26, 126, 199, 0.06);
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -206,13 +207,26 @@ footer {
 
 #welcome-section h2 {
     font-size: 2.3rem;
-    color: #1a7ec7;
+    color: #fff;
     margin-bottom: 14px;
     font-weight: 600;
 }
 
 #welcome-section p {
     font-size: 1.18rem;
-    color: #333;
+    color: #fff;
     margin: 0;
+}
+
+#trending-section {
+    max-width: 1100px;
+    margin: 36px auto 0 auto;
+    padding: 0 16px;
+}
+
+#trending-section h3 {
+    font-size: 1.5rem;
+    color: #1a7ec7;
+    margin-bottom: 15px;
+    text-align: center;
 }
