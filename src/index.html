@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdopteUnFilm</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <img src="assets/adopteunfilm.png" alt="Logo" class="logo">
+            <img src="assets/logotitre.png" alt="Deuxième Logo" class="logo logo-second">
+        </div>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Rechercher un film..." autocomplete="off">
+            <button type="submit">Rechercher</button>
+        </form>
+    </header>
+
+    <main>
+        <section id="recommendations">
+            <h2 id="search-result-title">Résultats trouvés pour :</h2>
+            <script>
+                document.getElementById('search-form').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const query = document.getElementById('search-input').value.trim();
+                    document.getElementById('search-result-title').textContent = query
+                        ? `Résultats trouvés pour : "${query}"`
+                        : 'Résultats trouvés pour :';
+                });
+            </script>
+            <div id="movie-list" class="movie-grid">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AdopteUnFilm</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
