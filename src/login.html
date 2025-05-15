@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - AdopteUnFilm</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <main class="login-main">
+        <form id="login-form" class="login-form">
+            <h2>Connexion</h2>
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" class="btn-primary">Se connecter</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            // Ici tu ajoutes la logique de connexion (appel API, etc.)
+            window.location.href = "home.html";
+        });
+    </script>
+</body>
+
+</html>

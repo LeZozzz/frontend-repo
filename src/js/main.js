@@ -32,10 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const query = input.value.trim();
         if (query !== '') {
-            // Redirige vers la même page avec le paramètre query dans l'URL
-            window.location.href = `index.html?query=${encodeURIComponent(query)}`;
+            window.location.href = `home.html?query=${encodeURIComponent(query)}`;
         }
     });
+
+    document.getElementById('login-btn')?.addEventListener('click', () => {
+        window.location.href = "login.html";
+    });
+
 
     async function searchMovies(query) {
         const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=${API_KEY}`;

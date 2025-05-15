@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchQuery = urlParams.get('query');
     const movieId = urlParams.get('id');
 
+
+    document.getElementById('login-btn')?.addEventListener('click', () => {
+        window.location.href = "login.html";
+    });
+
     // Si on arrive avec une requête dans l'URL (depuis details.html)
     if (searchQuery && input && form && movieList) {
         input.value = searchQuery;
@@ -25,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const query = input.value.trim();
             if (query !== '') {
-                window.location.href = `index.html?query=${encodeURIComponent(query)}`;
+                window.location.href = `home.html?query=${encodeURIComponent(query)}`;
             }
         });
     }
