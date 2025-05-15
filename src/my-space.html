@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails du Film</title>
+    <title>Mon espace - AdopteUnFilm</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -23,25 +22,27 @@
             <button type="submit">Rechercher</button>
         </form>
         <div class="header-actions">
-            <button id="login-btn" class="btn-primary">Connexion</button>
+            <button id="login-btn" class="btn-primary">Déconnexion</button>
             <div id="user-profile"></div>
         </div>
     </header>
-
     <main>
-        <section id="recommendations">
-            <div id="movie-details" class="movie-details">
-                <!-- Les infos du film seront injectées ici -->
-            </div>
+        <section id="user-welcome">
+            <h2>Bienvenue dans votre espace, <span id="username-placeholder"></span> !</h2>
+            <p>Vos recommandations personnalisées apparaîtront ici prochainement.</p>
+            <!-- Tu pourras ajouter ici la liste des recommandations plus tard -->
         </section>
     </main>
-
     <footer>
         <p>&copy; 2025 AdopteUnFilm</p>
     </footer>
-
-    <script src="js/details.js"></script>
     <script src="js/session.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Affiche le nom d'utilisateur dans le message de bienvenue
+        const username = localStorage.getItem('username');
+        document.getElementById('username-placeholder').textContent = username ? username : '';
+    </script>
 </body>
 
 </html>
