@@ -21,8 +21,10 @@
     <script>
         document.getElementById('login-form').addEventListener('submit', function (e) {
             e.preventDefault();
-            // Ici tu ajoutes la logique de connexion (appel API, etc.)
-            window.location.href = "home.html";
+            const username = document.getElementById('username').value;
+            localStorage.setItem('loggedIn', 'true');
+            localStorage.setItem('username', username);
+            window.location.href = 'home.html';
         });
     </script>
 </body>

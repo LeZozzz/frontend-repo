@@ -108,3 +108,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Appelle la fonction au chargement de la page d'accueil
     fetchTrendingMovies();
 });
+
+window.addEventListener('DOMContentLoaded', function () {
+    const loginBtn = document.getElementById('login-btn');
+    const userProfile = document.getElementById('user-profile');
+    const loggedIn = localStorage.getItem('loggedIn') === 'true';
+    const username = localStorage.getItem('username');
+
+    if (loggedIn && username) {
+        loginBtn.textContent = 'Déconnexion';
+        userProfile.textContent = `Connecté en tant que ${username}`;
+        loginBtn.onclick = function () {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('username');
+            window.location.reload();
+        };
+    } else {
+        loginBtn.textContent = 'Connexion';
+        userProfile.textContent = '';
+        loginBtn.onclick = function () {
+            window.location.href = 'login.html';
+        };
+    }
+});

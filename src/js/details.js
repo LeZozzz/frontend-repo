@@ -101,4 +101,27 @@ document.addEventListener('DOMContentLoaded', () => {
             movieDetails.innerHTML = `<p>Erreur lors du chargement des détails du film.</p>`;
         }
     }
+
+    const loginBtn = document.getElementById('login-btn');
+    const userProfile = document.getElementById('user-profile');
+    const loggedIn = localStorage.getItem('loggedIn') === 'true';
+    const username = localStorage.getItem('username');
+
+    if (loginBtn && userProfile) {
+        if (loggedIn && username) {
+            loginBtn.textContent = 'Déconnexion';
+            userProfile.textContent = `Connecté en tant que ${username}`;
+            loginBtn.onclick = function () {
+                localStorage.removeItem('loggedIn');
+                localStorage.removeItem('username');
+                window.location.href = 'home.html';
+            };
+        } else {
+            loginBtn.textContent = 'Connexion';
+            userProfile.textContent = '';
+            loginBtn.onclick = function () {
+                window.location.href = 'login.html';
+            };
+        }
+    }
 });

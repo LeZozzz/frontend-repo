@@ -239,7 +239,6 @@ footer p {
     padding: 0.6em 1.2em;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: 600;
     transition: background 0.2s;
 }
 
@@ -291,4 +290,34 @@ footer p {
     padding: 0.5em;
     border: 1px solid #bbb;
     border-radius: 4px;
+}
+
+/* Place les actions du header à droite et aligne verticalement */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    flex-direction: row-reverse;
+    /* Ajoute cette ligne */
+}
+
+/* Style du texte utilisateur */
+#user-profile {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Optionnel : ajuste le bouton si besoin */
+#login-btn {
+    min-width: 110px;
+    background-color: #212121;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#login-btn:hover {
+    background-color: #333;
 }
