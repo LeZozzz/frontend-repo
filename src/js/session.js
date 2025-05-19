@@ -39,4 +39,50 @@ window.addEventListener('DOMContentLoaded', function () {
             };
         }
     }
+
+    // Affichage des recommandations uniquement sur my-space.html
+    if (window.location.pathname.endsWith('my-space.html')) {
+        const username = localStorage.getItem('username');
+        const userId = localStorage.getItem('userId'); // Assure-toi que tu stockes bien l'id utilisateur !
+        const nb = 5; // Nombre de recommandations souhaitées
+
+        // Affiche le nom d'utilisateur
+        const usernamePlaceholder = document.getElementById('username-placeholder');
+        if (usernamePlaceholder) usernamePlaceholder.textContent = username ? username : '';
+
+        async function fetchRecommendations(userId, nb) {
+            if (!userId) {
+                document.getElementById('recommendations-list').innerHTML = "<p>Connectez-vous pour voir vos recommandations.</p>";
+                return;
+            }
+            const url = `http://localhost:8080/api/recommend?id=${userId}&nb=${nb}`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    document.getElementById('recommendations-list').innerHTML = "<p>Erreur lors de la récupération des recommandations.</p>";
+                    return;
+                }
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    let html = "<h3>Vos recommandations :</h3><div class='movie-list'>";
+                    data.forEach(movie => {
+                        html += `
+                            <div class="movie-card">
+                                <img src="${movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}">
+                                <h4>${movie.title} (${movie.year ? movie.year.toString().substring(0, 4) : ''})</h4>
+                            </div>
+                        `;
+                    });
+                    html += "</div>";
+                    document.getElementById('recommendations-list').innerHTML = html;
+                } else {
+                    document.getElementById('recommendations-list').innerHTML = "<p>Aucune recommandation trouvée.</p>";
+                }
+            } catch (error) {
+                document.getElementById('recommendations-list').innerHTML = "<p>Erreur lors de la récupération des recommandations.</p>";
+            }
+        }
+
+        fetchRecommendations(userId, nb);
+    }
 });

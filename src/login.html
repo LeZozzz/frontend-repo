@@ -43,7 +43,8 @@
         }
 
         .login-form input[type="text"],
-        .login-form input[type="password"] {
+        .login-form input[type="password"],
+        .login-form input[type="email"] {
             width: 80%;
             padding: 0.7rem;
             margin-bottom: 1.2rem;
@@ -55,7 +56,8 @@
         }
 
         .login-form input[type="text"]:focus,
-        .login-form input[type="password"]:focus {
+        .login-form input[type="password"]:focus,
+        .login-form input[type="email"]:focus {
             border-color: #007bff;
         }
 
@@ -86,31 +88,18 @@
 <body>
     <main class="login-main">
         <form id="login-form" class="login-form" autocomplete="off">
-            <img src="assets/logotitre.png" alt="Logo AdopteUnFilm">
-            <div id="login-error" class="login-error">Veuillez remplir tous les champs.</div>
-            <label for="username">Nom d'utilisateur</label>
-            <input type="text" id="username" name="username" required autocomplete="username">
+            <a href="home.html">
+                <img src="assets/logotitre.png" alt="Logo AdopteUnFilm">
+            </a>
+            <label for="username-input">Nom d'utilisateur</label>
+            <input type="text" id="username-input" name="username" required autocomplete="username">
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password" required autocomplete="current-password">
+            <div id="login-error" class="login-error" style="display:none;">Veuillez remplir tous les champs.</div>
             <button type="submit" class="btn-primary">Se connecter</button>
         </form>
     </main>
-    <script>
-        document.getElementById('login-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const errorDiv = document.getElementById('login-error');
-            if (!username || !password) {
-                errorDiv.style.display = 'block';
-                return;
-            }
-            errorDiv.style.display = 'none';
-            localStorage.setItem('loggedIn', 'true');
-            localStorage.setItem('username', username);
-            window.location.href = 'my-space.html';
-        });
-    </script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>

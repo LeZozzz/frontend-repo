@@ -36,22 +36,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function searchMovies(query) {
-        const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=${API_KEY}`;
+        // Utilise le bon endpoint pour la recherche par titre
+        const url = `http://localhost:8080/movie/title/${encodeURIComponent(query)}`;
         try {
             const response = await fetch(url);
             const data = await response.json();
-            if (data.Response === "True") {
+            if (data && data.length > 0) {
                 document.getElementById('search-result-title').textContent = `Résultats trouvés pour : "${query}"`;
                 movieList.innerHTML = '';
-                data.Search.forEach((movie) => {
+                data.forEach((movie) => {
                     const movieCard = document.createElement('div');
                     movieCard.classList.add('movie-card');
                     movieCard.innerHTML = `
-                        <img src="${movie.Poster !== "N/A" ? movie.Poster : 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.Title}">
-                        <h3>${movie.Title} (${movie.Year})</h3>
+                        <img src="${movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}">
+                        <h3>${movie.title} (${movie.year ? movie.year.toString().substring(0, 4) : ''})</h3>
                     `;
                     movieCard.addEventListener('click', () => {
-                        window.location.href = `details.html?id=${movie.imdbID}`;
+                        window.location.href = `details.html?id=${movie.id}`;
                     });
                     movieList.appendChild(movieCard);
                 });
@@ -66,34 +67,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Nouvelle fonction pour afficher les détails d'un film
     async function fetchMovieDetails(id) {
-        const url = `https://www.omdbapi.com/?i=${encodeURIComponent(id)}&apikey=${API_KEY}&plot=full`;
+        const url = `http://localhost:8080/movie/${id}`; // <-- Utilise l'ID pour récupérer le film
         try {
             const response = await fetch(url);
-            const data = await response.json();
-            if (data.Response === "True") {
-                // Convertir la durée en format "1h20" si possible
-                let formattedRuntime = data.Runtime;
-                if (data.Runtime && data.Runtime.endsWith('min')) {
-                    const minutes = parseInt(data.Runtime);
-                    if (!isNaN(minutes)) {
-                        const hours = Math.floor(minutes / 60);
-                        const mins = minutes % 60;
-                        formattedRuntime = hours > 0
-                            ? `${hours}h${mins > 0 ? mins : ''}`
-                            : `${mins}min`;
-                    }
+            const movie = await response.json();
+            if (movie) {
+                // Formatage de la durée si besoin
+                let formattedRuntime = movie.runtime;
+                if (movie.runtime && !isNaN(movie.runtime)) {
+                    const minutes = parseInt(movie.runtime);
+                    const hours = Math.floor(minutes / 60);
+                    const mins = minutes % 60;
+                    formattedRuntime = hours > 0
+                        ? `${hours}h${mins > 0 ? mins : ''}`
+                        : `${mins} min`;
                 }
                 movieDetails.innerHTML = `
-                    <img src="${data.Poster !== "N/A" ? data.Poster : 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${data.Title}">
-                    <div class="movie-info">
-                        <h2>${data.Title} (${data.Year})</h2>
-                        <p><strong>Genre :</strong> ${data.Genre}</p>
-                        <p><strong>Durée :</strong> ${formattedRuntime}</p>
-                        <p><strong>Réalisateur :</strong> ${data.Director}</p>
-                        <p><strong>Acteurs :</strong> ${data.Actors}</p>
-                        <p><strong>Résumé :</strong> ${data.Plot}</p>
-                    </div>
-                `;
+                <img src="${movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}">
+                <div class="movie-info">
+                    <h2>${movie.title} (${movie.year ? movie.year.toString().substring(0, 4) : ''})</h2>
+                    <p><strong>Genre :</strong> ${movie.genre
+                        ? movie.genre.split('|').map(g => g.trim()).join(', ')
+                        : ''
+                    }</p>
+                    <p><strong>Durée :</strong> ${formattedRuntime || ''}</p>
+                    <p><strong>Réalisateur :</strong> ${movie.director || ''}</p>
+                    <p><strong>Acteurs :</strong> ${movie.actors || ''}</p>
+                    <p><strong>Résumé :</strong> ${movie.plot || ''}</p>
+                </div>
+            `;
             } else {
                 movieDetails.innerHTML = `<p>Film introuvable.</p>`;
             }
@@ -110,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginBtn && userProfile) {
         if (loggedIn && username) {
             loginBtn.textContent = 'Déconnexion';
-            userProfile.textContent = `Connecté en tant que ${username}`;
+            userProfile.textContent = `Connecté en tant que ${username} `;
             loginBtn.onclick = function () {
                 localStorage.removeItem('loggedIn');
                 localStorage.removeItem('username');
