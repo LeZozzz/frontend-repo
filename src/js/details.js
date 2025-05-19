@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const movieCard = document.createElement('div');
                     movieCard.classList.add('movie-card');
                     movieCard.innerHTML = `
-                        <img src="${movie.Poster !== "N/A" ? movie.Poster : 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.Title}">
-                        <h3>${movie.Title} (${movie.Year})</h3>
+                        <img src="${movie.poster !== "N/A" ? movie.poster : 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.Title}">
+                        <h3>${movie.Title} (${movie.year ? movie.year.toString().substring(0, 4) : ''})</h3>
                     `;
                     movieCard.addEventListener('click', () => {
                         window.location.href = `details.html?id=${movie.imdbID}`;
@@ -84,9 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 movieDetails.innerHTML = `
-                    <img src="${data.Poster !== "N/A" ? data.Poster : 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${data.Title}">
+                    <img src="${data.poster !== "N/A" ? data.poster : 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${data.Title}">
                     <div class="movie-info">
-                        <h2>${data.Title} (${data.Year})</h2>
+                        <h2>${data.Title} (${movie.year ? movie.year.toString().substring(0, 4) : ''})</h2>
                         <p><strong>Genre :</strong> ${data.Genre}</p>
                         <p><strong>Durée :</strong> ${formattedRuntime}</p>
                         <p><strong>Réalisateur :</strong> ${data.Director}</p>

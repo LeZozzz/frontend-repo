@@ -29,7 +29,6 @@
     <main>
         <section id="user-welcome">
             <h2>Bienvenue dans votre espace, <span id="username-placeholder"></span> !</h2>
-            <p>Vos recommandations personnalisées apparaîtront ici prochainement.</p>
             <div id="recommendations-list"></div>
         </section>
     </main>
@@ -38,10 +37,46 @@
     </footer>
     <script src="js/session.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/details.js"></script>
     <script>
         // Affiche le nom d'utilisateur dans le message de bienvenue
         const username = localStorage.getItem('username');
         document.getElementById('username-placeholder').textContent = username ? username : '';
+
+        // Récupère l'id utilisateur
+        const userId = localStorage.getItem('userId');
+        const nb = 6; // Nombre de recommandations à afficher
+
+        async function fetchRecommendations(userId, nb) {
+            if (!userId) {
+                document.getElementById('recommendations-list').innerHTML = "<p>Connectez-vous pour voir vos recommandations.</p>";
+                return;
+            }
+            const url = `http://localhost:8080/api/recommend?id=${userId}&nb=${nb}`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    document.getElementById('recommendations-list').innerHTML = "<p>Erreur lors de la récupération des recommandations.</p>";
+                    return;
+                }
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    let html = "<div class='movie-grid'>";
+                    data.forEach(movie => {
+                        html += `<div class="movie-card"><img src="${movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}"><h3>${movie.title} (${movie.year ? movie.year.toString().substring(0, 4) : ''})</h3></div>
+    `;
+                    });
+                    html += "</div>";
+                    document.getElementById('recommendations-list').innerHTML = html;
+                } else {
+                    document.getElementById('recommendations-list').innerHTML = "<p>Aucune recommandation trouvée.</p>";
+                }
+            } catch (error) {
+                document.getElementById('recommendations-list').innerHTML = "<p>Erreur lors de la récupération des recommandations.</p>";
+            }
+        }
+
+        fetchRecommendations(userId, nb);
     </script>
 </body>
 

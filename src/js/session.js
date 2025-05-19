@@ -68,8 +68,8 @@ window.addEventListener('DOMContentLoaded', function () {
                     data.forEach(movie => {
                         html += `
                             <div class="movie-card">
-                                <img src="${movie.posterUrl || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}">
-                                <h4>${movie.title} (${movie.year})</h4>
+                                <img src="${movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}">
+                                <h4>${movie.title} (${movie.year ? movie.year.toString().substring(0, 4) : ''})</h4>
                             </div>
                         `;
                     });

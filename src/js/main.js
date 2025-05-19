@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const movieCard = document.createElement('div');
                     movieCard.classList.add('movie-card');
                     movieCard.innerHTML = `
-                        <img src="${movie.posterUrl || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}">
-                        <h3>${movie.title} (${movie.year})</h3>
+                        <img src="${movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}">
+                        <h3>${movie.title} (${movie.year ? movie.year.toString().substring(0, 4) : ''})</h3>
                     `;
                     movieCard.addEventListener('click', () => {
                         window.location.href = `details.html?id=${movie.id}`;
@@ -146,8 +146,8 @@ window.addEventListener('DOMContentLoaded', function () {
                     const movieCard = document.createElement('div');
                     movieCard.classList.add('movie-card');
                     movieCard.innerHTML = `
-                        <img src="${movie.posterUrl || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}">
-                        <h3>${movie.title} (${movie.year})</h3>
+                        <img src="${movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'}" alt="${movie.title}">
+                        <h3>${movie.title} (${movie.year ? movie.year.toString().substring(0, 4) : ''})</h3>
                     `;
                     movieCard.addEventListener('click', () => {
                         window.location.href = `details.html?id=${movie.id}`;
