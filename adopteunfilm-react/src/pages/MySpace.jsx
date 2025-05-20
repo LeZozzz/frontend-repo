@@ -1,29 +1,75 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import RecommendationsList from '../components/RecommendationsList';
-import { getUserId, getUsername } from '../utils/api';
+import { getUserId, getUsername, fetchRecommendations, rateMovie } from '../utils/api';
+import '../styles/MySpace.css';
+
+const Rating = ({ onRate }) => {
+    const [value, setValue] = useState(0);
+    return (
+        <span>
+            <input
+                type="number"
+                min="1"
+                max="5"
+                value={value}
+                onChange={e => setValue(e.target.value)}
+                style={{ width: 40 }}
+            />
+            <button onClick={() => onRate(Number(value))}>Noter</button>
+        </span>
+    );
+};
 
 const MySpace = () => {
     const [username, setUsername] = useState('');
     const [userId, setUserId] = useState(null);
+    const [recommendations, setRecommendations] = useState([]);
+    const [seenMovies, setSeenMovies] = useState([]);
 
     useEffect(() => {
         const storedUsername = getUsername();
         const storedUserId = getUserId();
         setUsername(storedUsername);
         setUserId(storedUserId);
+
+        if (storedUserId) {
+            fetchRecommendations(storedUserId, 10).then(setRecommendations);
+        }
     }, []);
 
+    const handleRate = async (movieId, rating) => {
+        await rateMovie(userId, movieId, rating);
+        const ratedMovie = recommendations.find(m => m.id === movieId);
+        setRecommendations(recommendations.filter(m => m.id !== movieId));
+        setSeenMovies([...seenMovies, { ...ratedMovie, rating }]);
+    };
+
     return (
-        <div>
-            <main>
-                <section id="user-welcome">
-                    <h2>Bienvenue dans votre espace, <span>{username}</span> !</h2>
-                    <RecommendationsList userId={userId} />
-                </section>
-            </main>
-        </div>
+        <main>
+            <section id="user-welcome">
+                <h2>Bienvenue dans votre espace, <span>{username}</span> !</h2>
+            </section>
+            <section>
+                <h3>Mes recommandations</h3>
+                <ul>
+                    {recommendations.map(movie => (
+                        <li key={movie.id}>
+                            {movie.title}
+                            <Rating onRate={rating => handleRate(movie.id, rating)} />
+                        </li>
+                    ))}
+                </ul>
+            </section>
+            <section>
+                <h3>Mes films</h3>
+                <ul>
+                    {seenMovies.map(movie => (
+                        <li key={movie.id}>
+                            {movie.title} (Note : {movie.rating})
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        </main>
     );
 };
 
