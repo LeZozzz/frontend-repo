@@ -13,3 +13,11 @@ export const fetchRecommendations = async (userId, nb) => {
     const data = await response.json();
     return data;
 };
+
+export function getUsername() {
+    return localStorage.getItem('username');
+}
+
+export function getUserId() {
+    return localStorage.getItem('userId');
+}

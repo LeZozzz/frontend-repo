@@ -1,25 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './MovieCard.css'; // Assurez-vous de créer ce fichier pour les styles spécifiques au composant
+import { motion } from 'framer-motion';
+import '../styles/MovieCard.css'; // Assuming you have a CSS file for styling
 
 const MovieCard = ({ movie }) => {
     return (
-        <div className="movie-card">
-            <img 
-                src={movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'} 
-                alt={movie.title} 
-            />
-            <h3>{movie.title} ({movie.year ? movie.year.toString().substring(0, 4) : ''})</h3>
-        </div>
+        <motion.div
+            className="movie-card"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+        >
+            <img src={movie.poster} alt={movie.title} className="movie-poster" />
+            <div className="movie-info">
+                <h2>{movie.title}</h2>
+                <p>{movie.description}</p>
+            </div>
+        </motion.div>
     );
-};
-
-MovieCard.propTypes = {
-    movie: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        year: PropTypes.number,
-        poster: PropTypes.string,
-    }).isRequired,
 };
 
 export default MovieCard;

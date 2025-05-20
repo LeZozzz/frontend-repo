@@ -1,22 +1,35 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import MySpace from './pages/MySpace';
+import Login from './pages/Login';
 import './styles/styles.css';
+
+const Layout = ({ children }) => {
+    const location = useLocation();
+    const isLogin = location.pathname === '/login';
+
+    return (
+        <div className="app-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+            {!isLogin && <Header />}
+            <main style={{ flex: 1 }}>{children}</main>
+            {!isLogin && <Footer />}
+        </div>
+    );
+};
 
 const App = () => {
     return (
         <Router>
-            <div>
-                <Header />
-                <Switch>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/my-space" component={MySpace} />
-                </Switch>
-                <Footer />
-            </div>
+            <Layout>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/my-space" element={<MySpace />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </Layout>
         </Router>
     );
 };
