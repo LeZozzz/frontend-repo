@@ -37,7 +37,7 @@ const Login = () => {
             localStorage.setItem('loggedIn', 'true');
             localStorage.setItem('userId', data.id);
             localStorage.setItem('username', data.prenom + ' ' + data.nom);
-            navigate('/'); // Redirige vers la page d'accueil
+            navigate('/my-space'); // Redirige vers MySpace
         } catch (err) {
             setError('Erreur lors de la connexion.');
         }

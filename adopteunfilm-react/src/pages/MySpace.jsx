@@ -17,14 +17,12 @@ const MySpace = () => {
 
     return (
         <div>
-            <Header />
             <main>
                 <section id="user-welcome">
                     <h2>Bienvenue dans votre espace, <span>{username}</span> !</h2>
                     <RecommendationsList userId={userId} />
                 </section>
             </main>
-            <Footer />
         </div>
     );
 };

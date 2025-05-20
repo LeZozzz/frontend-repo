@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import MySpace from './pages/MySpace';
 import Login from './pages/Login';
+import Search from './pages/Search';
+import Details from './pages/Details';
 import './styles/styles.css';
 
 const Layout = ({ children }) => {
@@ -28,6 +30,8 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/my-space" element={<MySpace />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/search" element={<Search />} />
+                    <Route path="/details/:id" element={<Details />} />
                 </Routes>
             </Layout>
         </Router>
