@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/Details.css';
+import { getUserId, rateMovie } from '../utils/api';
+import Rating from '../components/Rating'; // Assuming Rating is a separate component
 
 const formatRuntime = (runtime) => {
     if (!runtime || isNaN(runtime)) return '';
@@ -22,6 +24,9 @@ const Details = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
+    const userId = getUserId();
+    const isLoggedIn = !!userId;
+
     useEffect(() => {
         setLoading(true);
         setError('');
@@ -36,6 +41,11 @@ const Details = () => {
                 setLoading(false);
             });
     }, [id]);
+
+    const handleRate = async (movieId, rating) => {
+        await rateMovie(userId, movieId, rating);
+        // Optionnel : afficher un message ou mettre à jour l’état local
+    };
 
     if (loading) return (
         <div className="loader-center">
@@ -63,6 +73,11 @@ const Details = () => {
                             <p><strong>Réalisateur :</strong> {movie.director || ''}</p>
                             <p><strong>Acteurs :</strong> {movie.actors || ''}</p>
                             <p><strong>Résumé :</strong> {movie.plot || movie.description || ''}</p>
+                            {isLoggedIn ? (
+                                <Rating onRate={rating => handleRate(movie.id, rating)} />
+                            ) : (
+                                <p>Connectez-vous pour noter ce film.</p>
+                            )}
                         </div>
                     </div>
                 </section>

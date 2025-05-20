@@ -1,23 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUserId, getUsername, fetchRecommendations, rateMovie } from '../utils/api';
 import '../styles/MySpace.css';
-
-const Rating = ({ onRate }) => {
-    const [value, setValue] = useState(0);
-    return (
-        <span>
-            <input
-                type="number"
-                min="1"
-                max="5"
-                value={value}
-                onChange={e => setValue(e.target.value)}
-                style={{ width: 40 }}
-            />
-            <button onClick={() => onRate(Number(value))}>Noter</button>
-        </span>
-    );
-};
+import Rating from '../components/Rating';
 
 const MySpace = () => {
     const [username, setUsername] = useState('');
