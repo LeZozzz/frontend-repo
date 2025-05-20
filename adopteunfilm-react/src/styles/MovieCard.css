@@ -1,0 +1,24 @@
+.movie-card {
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #f50057, 0 0 20px #f50057;
+    padding: 16px;
+    margin: 10px;
+    transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px #f50057, 0 0 30px #f50057;
+}
+
+.movie-poster {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.movie-info h2 {
+    color: #f50057;
+    font-size: 1.2rem;
+}
