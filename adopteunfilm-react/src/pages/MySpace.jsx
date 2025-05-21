@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUserId, getUsername, fetchRecommendations, rateMovie } from '../utils/api';
 import '../styles/MySpace.css';
-import Rating from '../components/Rating';
 
 const MySpace = () => {
     const [username, setUsername] = useState('');
@@ -36,6 +35,15 @@ const MySpace = () => {
         }
     };
 
+    const scrollCarousel = (direction) => {
+        const carousel = document.getElementById('carousel-reco');
+        const item = carousel.querySelector('.carousel-item');
+        if (!carousel || !item) return;
+
+        const itemWidth = item.offsetWidth + parseFloat(getComputedStyle(carousel).gap || 16); // carte + espace
+        carousel.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+    };
+
     return (
         <main>
             <section id="user-welcome">
@@ -43,14 +51,18 @@ const MySpace = () => {
             </section>
             <section>
                 <h3>Mes recommandations</h3>
-                <ul>
-                    {recommendations.map(movie => (
-                        <li key={movie.id}>
-                            {movie.title}
-                            <Rating onRate={rating => handleRate(movie.id, rating)} />
-                        </li>
-                    ))}
-                </ul>
+                <div className="carousel-wrapper">
+                    <button className="carousel-arrow left" onClick={() => scrollCarousel(-1)}>&lt;</button>
+                    <div className="carousel" id="carousel-reco">
+                        {recommendations.map(movie => (
+                            <div className="carousel-item" key={movie.id}>
+                                <img src={movie.poster} alt={movie.title} className="carousel-img" />
+                                <div className="carousel-title">{movie.title}</div>
+                            </div>
+                        ))}
+                    </div>
+                    <button className="carousel-arrow right" onClick={() => scrollCarousel(1)}>&gt;</button>
+                </div>
             </section>
             <section>
                 <h3>Mes notes</h3>
