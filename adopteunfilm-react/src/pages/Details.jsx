@@ -44,7 +44,14 @@ const Details = () => {
 
     const handleRate = async (movieId, rating) => {
         await rateMovie(userId, movieId, rating);
-        // Optionnel : afficher un message ou mettre à jour l’état local
+        // Ajoute le film noté dans le localStorage
+        let rated = JSON.parse(localStorage.getItem('ratedMovies') || '[]');
+        // Empêche les doublons
+        if (!rated.find(m => m.id === movieId)) {
+            rated.push({ id: movieId, title: movie.title, rating });
+            localStorage.setItem('ratedMovies', JSON.stringify(rated));
+        }
+        // Optionnel : message de confirmation
     };
 
     if (loading) return (
@@ -56,33 +63,31 @@ const Details = () => {
     if (!movie) return <p>Aucun détail trouvé.</p>;
 
     return (
-        <>
-            <main>
-                <section id="recommendations">
-                    <div id="movie-details" className="movie-details">
-                        <img
-                            src={movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'}
-                            alt={movie.title}
-                        />
-                        <div className="movie-info">
-                            <h2>
-                                {movie.title} {movie.year ? `(${movie.year.toString().substring(0, 4)})` : ''}
-                            </h2>
-                            <p><strong>Genre :</strong> {formatGenre(movie.genre)}</p>
-                            <p><strong>Durée :</strong> {formatRuntime(movie.runtime)}</p>
-                            <p><strong>Réalisateur :</strong> {movie.director || ''}</p>
-                            <p><strong>Acteurs :</strong> {movie.actors || ''}</p>
-                            <p><strong>Résumé :</strong> {movie.plot || movie.description || ''}</p>
-                            {isLoggedIn ? (
-                                <Rating onRate={rating => handleRate(movie.id, rating)} />
-                            ) : (
-                                <p>Connectez-vous pour noter ce film.</p>
-                            )}
-                        </div>
+        <main>
+            <section id="recommendations">
+                <div id="movie-details" className="movie-details">
+                    <img
+                        src={movie.poster || 'https://via.placeholder.com/300x445?text=No+Image'}
+                        alt={movie.title}
+                    />
+                    <div className="movie-info">
+                        <h2>
+                            {movie.title} {movie.year ? `(${movie.year.toString().substring(0, 4)})` : ''}
+                        </h2>
+                        <p><strong>Genre :</strong> {formatGenre(movie.genre)}</p>
+                        <p><strong>Durée :</strong> {formatRuntime(movie.runtime)}</p>
+                        <p><strong>Réalisateur :</strong> {movie.director || ''}</p>
+                        <p><strong>Acteurs :</strong> {movie.actors || ''}</p>
+                        <p><strong>Résumé :</strong> {movie.plot || movie.description || ''}</p>
+                        {isLoggedIn ? (
+                            <Rating onRate={rating => handleRate(movie.id, rating)} />
+                        ) : (
+                            <p>Connectez-vous pour noter ce film.</p>
+                        )}
                     </div>
-                </section>
-            </main>
-        </>
+                </div>
+            </section>
+        </main>
     );
 };
 

@@ -1,5 +1,5 @@
 .search-results {
-    padding: 2rem;
+    padding: 0 0.5rem;
 }
 
 #movie-list {
@@ -70,4 +70,8 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+#search-result-title {
+    margin-top: 0;
 }

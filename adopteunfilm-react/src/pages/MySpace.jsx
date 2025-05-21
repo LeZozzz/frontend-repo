@@ -18,6 +18,9 @@ const MySpace = () => {
         if (storedUserId) {
             fetchRecommendations(storedUserId, 10).then(setRecommendations);
         }
+        // Récupère les films notés depuis le localStorage
+        const rated = JSON.parse(localStorage.getItem('ratedMovies') || '[]');
+        setSeenMovies(rated);
     }, []);
 
     const handleRate = async (movieId, rating) => {
@@ -25,6 +28,12 @@ const MySpace = () => {
         const ratedMovie = recommendations.find(m => m.id === movieId);
         setRecommendations(recommendations.filter(m => m.id !== movieId));
         setSeenMovies([...seenMovies, { ...ratedMovie, rating }]);
+        // Ajoute dans le localStorage
+        let rated = JSON.parse(localStorage.getItem('ratedMovies') || '[]');
+        if (!rated.find(m => m.id === movieId)) {
+            rated.push({ id: movieId, title: ratedMovie.title, rating });
+            localStorage.setItem('ratedMovies', JSON.stringify(rated));
+        }
     };
 
     return (
@@ -44,7 +53,7 @@ const MySpace = () => {
                 </ul>
             </section>
             <section>
-                <h3>Mes films</h3>
+                <h3>Mes notes</h3>
                 <ul>
                     {seenMovies.map(movie => (
                         <li key={movie.id}>
