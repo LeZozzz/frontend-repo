@@ -125,6 +125,34 @@ li {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+/* ======= LOADER ======= */
+
+.loader-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 180px;
+}
+
+.loader {
+    border: 6px solid #232228;
+    border-top: 6px solid #ff007f;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /* ======= RESPONSIVE ======= */
 
 @media (max-width: 1024px) {
