@@ -35,20 +35,20 @@ body {
     margin: 0;
     display: flex;
     max-width: 1510px;
-    gap: 2rem;
+    gap: 5rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 #movie-details img {
-    width: 300px;
-    height: auto;
+    max-width: 400px;
     border-radius: 8px;
     object-fit: cover;
 }
 
 .movie-info {
     flex: 1;
+    max-width: 1300px;
 }
 
 .movie-info h2 {
@@ -59,4 +59,5 @@ body {
 .movie-info p {
     margin-bottom: 0.5rem;
     line-height: 1.5;
+    font-size: 1rem;
 }

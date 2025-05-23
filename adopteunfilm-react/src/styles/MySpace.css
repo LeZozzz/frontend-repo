@@ -153,34 +153,119 @@ li {
     }
 }
 
-/* ======= RESPONSIVE ======= */
+/* ======= FILMS NOTÉS ======= */
 
+.noted-movies-list {
+    display: flex;
+    gap: 1.5rem;
+    overflow: hidden;
+    padding: 1rem 0;
+    /* Pour masquer le scroll manuel */
+    scroll-behavior: smooth;
+    /* Désactive le wrap pour carrousel horizontal */
+    flex-wrap: nowrap;
+    width: 100%;
+    /* Optionnel : pour aligner comme les recos */
+    align-items: stretch;
+}
+
+/* Les cartes prennent une largeur fixe comme les recos */
+.noted-movie-card {
+    flex: 0 0 120px;
+    max-width: 120px;
+    min-width: 120px;
+    background: #232228;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px #ff007f22;
+    border: 1.5px solid #ff007f22;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.7rem 0.5rem;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    transition: transform 0.3s ease;
+}
+
+.noted-movie-card:hover {
+    transform: scale(1.03);
+}
+
+.noted-movie-poster {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 7px;
+    margin-bottom: 0.5rem;
+    background: #18171b;
+}
+
+.noted-movie-title {
+    color: #fff;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    text-align: center;
+    font-weight: 600;
+    min-height: 2.2em;
+}
+
+.noted-movie-rating {
+    color: #ff007f;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.2rem;
+}
+
+.noted-movie-stars {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-bottom: 0.2rem;
+}
+
+.noted-movie-star {
+    color: gold;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+/* Responsive pour les cartes notées */
 @media (max-width: 1024px) {
-    .carousel-item {
-        flex: 0 0 200px;
+    .noted-movie-card {
+        flex: 0 0 100px;
+        max-width: 100px;
+        min-width: 100px;
     }
 
-    .carousel-img {
-        height: 300px;
+    .noted-movie-poster {
+        width: 80px;
+        height: 120px;
     }
 }
 
 @media (max-width: 768px) {
-    .carousel-item {
-        flex: 0 0 160px;
+    .noted-movie-card {
+        flex: 0 0 80px;
+        max-width: 80px;
+        min-width: 80px;
     }
 
-    .carousel-img {
-        height: 240px;
+    .noted-movie-poster {
+        width: 60px;
+        height: 90px;
     }
 }
 
 @media (max-width: 480px) {
-    .carousel-item {
-        flex: 0 0 100%;
+    .noted-movie-card {
+        flex: 0 0 70vw;
+        max-width: 70vw;
+        min-width: 70vw;
     }
 
-    .carousel-img {
+    .noted-movie-poster {
+        width: 100%;
         height: auto;
     }
 }

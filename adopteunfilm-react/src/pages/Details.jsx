@@ -12,11 +12,6 @@ const formatRuntime = (runtime) => {
     return hours > 0 ? `${hours}h${mins > 0 ? mins : ''}` : `${mins} min`;
 };
 
-const formatGenre = (genre) => {
-    if (!genre) return '';
-    return genre.split('|').map(g => g.trim()).join(', ');
-};
-
 const Details = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -34,6 +29,7 @@ const Details = () => {
             .then(res => res.json())
             .then(data => {
                 setMovie(data);
+                console.log(data);
                 setLoading(false);
             })
             .catch(() => {
@@ -42,16 +38,17 @@ const Details = () => {
             });
     }, [id]);
 
-    const handleRate = async (movieId, rating) => {
-        await rateMovie(userId, movieId, rating);
-        // Ajoute le film noté dans le localStorage
-        let rated = JSON.parse(localStorage.getItem('ratedMovies') || '[]');
-        // Empêche les doublons
-        if (!rated.find(m => m.id === movieId)) {
-            rated.push({ id: movieId, title: movie.title, rating });
-            localStorage.setItem('ratedMovies', JSON.stringify(rated));
+    const handleRate = async (movie, rating) => {
+        if (!userId) return;
+        try {
+            await fetch(`http://localhost:8080/account/${userId}/movie/${movie.id}/${rating}/rating`, {
+                method: 'POST'
+            });
+            // Optionnel : afficher un message de succès ou rafraîchir la note
+            alert('Votre note a bien été prise en compte !');
+        } catch (e) {
+            alert('Erreur lors de la prise en compte de la note.');
         }
-        // Optionnel : message de confirmation
     };
 
     if (loading) return (
@@ -74,13 +71,21 @@ const Details = () => {
                         <h2>
                             {movie.title} {movie.year ? `(${movie.year.toString().substring(0, 4)})` : ''}
                         </h2>
-                        <p><strong>Genre :</strong> {formatGenre(movie.genre)}</p>
+                        <p><strong>Genre :</strong> {
+                            Array.isArray(movie.genders)
+                                ? movie.genders.join(', ')
+                                : (movie.genders ? movie.genders.split('|').join(', ') : '')
+                        }</p>
                         <p><strong>Durée :</strong> {formatRuntime(movie.runtime)}</p>
                         <p><strong>Réalisateur :</strong> {movie.director || ''}</p>
-                        <p><strong>Acteurs :</strong> {movie.actors || ''}</p>
+                        <p><strong>Acteurs :</strong> {
+                            Array.isArray(movie.actors)
+                                ? movie.actors.join(', ')
+                                : (movie.actors ? movie.actors.split('|').join(', ') : '')
+                        }</p>
                         <p><strong>Résumé :</strong> {movie.plot || movie.description || ''}</p>
                         {isLoggedIn ? (
-                            <Rating onRate={rating => handleRate(movie.id, rating)} />
+                            <Rating onRate={rating => handleRate(movie, rating)} />
                         ) : (
                             <p>Connectez-vous pour noter ce film.</p>
                         )}

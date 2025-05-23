@@ -41,3 +41,21 @@ export async function rateMovie(userId, movieId, rating) {
     }
     return response.json();
 }
+
+export async function getMovie(movieId) {
+    const url = `http://localhost:8080/movie/${movieId}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error("Error fetching movie.");
+    }
+    return response.json();
+}
+
+export async function getMovieByRatingId(ratingId) {
+    const url = `http://localhost:8080/ratingId/${ratingId}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error("Error fetching movie by ratingId.");
+    }
+    return response.json();
+}

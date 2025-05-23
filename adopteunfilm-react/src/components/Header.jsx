@@ -61,7 +61,7 @@ const Header = () => {
                 <input
                     type="text"
                     id="search-input"
-                    placeholder="🔍 Rechercher un film..."
+                    placeholder="Rechercher un film..."
                     autoComplete="off"
                     value={search}
                     onChange={e => setSearch(e.target.value)}

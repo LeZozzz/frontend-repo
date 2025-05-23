@@ -9,23 +9,25 @@ const Search = () => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const query = new URLSearchParams(location.search).get('q') || '';
+
+    // Récupère le genre depuis l'URL
+    const params = new URLSearchParams(location.search);
+    const genre = params.get('genre');
 
     useEffect(() => {
-        if (!query) return;
+        if (!genre) return;
         setLoading(true);
         setError('');
-        fetch(`http://localhost:8080/movie/title/${encodeURIComponent(query)}`)
-            .then(res => res.json())
-            .then(data => {
-                setResults(data || []);
-                setLoading(false);
+        setResults([]);
+        fetch(`http://localhost:8080/movie/genre/${encodeURIComponent(genre)}`)
+            .then(res => {
+                if (!res.ok) throw new Error("Erreur lors de la recherche.");
+                return res.json();
             })
-            .catch(() => {
-                setError('Une erreur est survenue.');
-                setLoading(false);
-            });
-    }, [query]);
+            .then(data => setResults(data))
+            .catch(e => setError(e.message))
+            .finally(() => setLoading(false));
+    }, [genre]);
 
     return (
         <div className="search-results">
@@ -36,7 +38,7 @@ const Search = () => {
             ) : (
                 <>
                     <h2 id="search-result-title">
-                        {query ? `Résultats trouvés pour : "${query}"` : 'Recherche'}
+                        {genre ? `Résultats trouvés pour le genre : "${genre}"` : 'Recherche'}
                     </h2>
                     {error && <p>{error}</p>}
                     <div id="movie-list">
