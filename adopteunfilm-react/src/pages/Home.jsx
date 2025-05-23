@@ -54,16 +54,8 @@ const Home = () => {
                     Trouve ton <span className="highlight">match ciné parfait</span><br />
                 </h1>
                 <p className="home-desc">
-                    Tape un titre ou un genre et découvre des recommandations personnalisées !
+                    Choisis un genre et découvre des recommandations personnalisées !
                 </p>
-                <form className="home-search" onSubmit={handleSearchSubmit}>
-                    <input
-                        type="text"
-                        name="searchQuery"
-                        placeholder="Rechercher un film ou un genre..."
-                    />
-                    <button type="submit">Découvrir</button>
-                </form>
                 <div className="home-quicktags">
                     {genres.map(genre => (
                         <span

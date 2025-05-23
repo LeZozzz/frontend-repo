@@ -9,25 +9,39 @@ const Search = () => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-
-    // Récupère le genre depuis l'URL
     const params = new URLSearchParams(location.search);
-    const genre = params.get('genre');
+    const query = params.get('q') || '';
+    const genre = params.get('genre') || '';
 
     useEffect(() => {
-        if (!genre) return;
-        setLoading(true);
-        setError('');
-        setResults([]);
-        fetch(`http://localhost:8080/movie/genre/${encodeURIComponent(genre)}`)
-            .then(res => {
-                if (!res.ok) throw new Error("Erreur lors de la recherche.");
-                return res.json();
-            })
-            .then(data => setResults(data))
-            .catch(e => setError(e.message))
-            .finally(() => setLoading(false));
-    }, [genre]);
+        if (query) {
+            setLoading(true);
+            setError('');
+            fetch(`http://localhost:8080/movie/search?q=${encodeURIComponent(query)}`)
+                .then(res => res.json())
+                .then(data => {
+                    setResults(data || []);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setError('Une erreur est survenue.');
+                    setLoading(false);
+                });
+        } else if (genre) {
+            setLoading(true);
+            setError('');
+            fetch(`http://localhost:8080/movie/genre/${encodeURIComponent(genre)}`)
+                .then(res => res.json())
+                .then(data => {
+                    setResults(data || []);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setError('Une erreur est survenue.');
+                    setLoading(false);
+                });
+        }
+    }, [query, genre]);
 
     return (
         <div className="search-results">
@@ -38,7 +52,7 @@ const Search = () => {
             ) : (
                 <>
                     <h2 id="search-result-title">
-                        {genre ? `Résultats trouvés pour le genre : "${genre}"` : 'Recherche'}
+                        {query ? `Résultats trouvés pour : "${query}"` : 'Recherche'}
                     </h2>
                     {error && <p>{error}</p>}
                     <div id="movie-list">
