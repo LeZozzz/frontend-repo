@@ -7,6 +7,7 @@ import MySpace from './pages/MySpace';
 import Login from './pages/Login';
 import Search from './pages/Search';
 import Details from './pages/Details';
+import AdminSpace from './pages/AdminSpace';
 import './styles/styles.css';
 
 const Layout = ({ children }) => {
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/details/:id" element={<Details />} />
+                    <Route path="/admin" element={<AdminSpace />} />
                 </Routes>
             </Layout>
         </Router>

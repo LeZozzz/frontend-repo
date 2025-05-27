@@ -9,10 +9,14 @@ const Header = () => {
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('loggedIn') === 'true');
+    const [userRole, setUserRole] = useState(localStorage.getItem('userRole'));
 
     useEffect(() => {
         // Met à jour l'état si le localStorage change (optionnel)
-        const onStorage = () => setIsLoggedIn(localStorage.getItem('loggedIn') === 'true');
+        const onStorage = () => {
+            setIsLoggedIn(localStorage.getItem('loggedIn') === 'true');
+            setUserRole(localStorage.getItem('userRole'));
+        };
         window.addEventListener('storage', onStorage);
         return () => window.removeEventListener('storage', onStorage);
     }, []);
@@ -21,7 +25,9 @@ const Header = () => {
         localStorage.removeItem('loggedIn');
         localStorage.removeItem('userId');
         localStorage.removeItem('username');
+        localStorage.removeItem('userRole');
         setIsLoggedIn(false);
+        setUserRole(null);
         navigate('/');
     };
 
@@ -72,9 +78,15 @@ const Header = () => {
             <div className="header-actions">
                 {isLoggedIn ? (
                     <>
-                        <button className="btn-glow" onClick={handleMySpace} style={{ marginRight: '1rem' }}>
-                            Mon espace
-                        </button>
+                        {userRole === 'ADMIN' ? (
+                            <button className="btn-glow" onClick={() => navigate('/admin')} style={{ marginRight: '1rem' }}>
+                                Espace administrateur
+                            </button>
+                        ) : (
+                            <button className="btn-glow" onClick={handleMySpace} style={{ marginRight: '1rem' }}>
+                                Mon espace
+                            </button>
+                        )}
                         <button className="btn-glow logout-btn" onClick={handleLogout}>
                             Déconnexion
                         </button>

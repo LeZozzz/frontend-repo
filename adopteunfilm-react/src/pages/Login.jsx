@@ -34,10 +34,15 @@ const Login = () => {
             }
 
             const data = await response.json();
+            localStorage.setItem('userRole', data.role); // data.role doit valoir 'ADMIN' ou 'USER'
             localStorage.setItem('loggedIn', 'true');
             localStorage.setItem('userId', data.id);
-            localStorage.setItem('username', data.prenom + ' ' + data.nom);
-            navigate('/my-space'); // Redirige vers MySpace
+            localStorage.setItem('username', data.nom);
+            if (data.role === 'ADMIN') {
+                navigate('/admin');
+            } else {
+                navigate('/my-space'); // Redirige vers MySpace
+            }
         } catch (err) {
             setError('Erreur lors de la connexion.');
         }
