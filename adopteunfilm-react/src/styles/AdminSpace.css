@@ -1,0 +1,115 @@
+h1 {
+    text-align: center;
+    color: #f50057;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+}
+
+.admin-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.admin-tabs button {
+    padding: 0.7rem 2.2rem;
+    border: none;
+    background: #f3f3f3;
+    color: #232228;
+    border-radius: 8px 8px 0 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.admin-tabs button.active,
+.admin-tabs button:hover {
+    background: #f50057;
+    color: #fff;
+}
+
+.admin-content {
+    background: #fafaff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    padding: 2rem 1.5rem;
+    min-height: 300px;
+}
+
+.admin-content h2 {
+    color: #232228;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #ff007f22;
+    padding-bottom: 0.5rem;
+}
+
+.admin-film-search {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-film-search input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.admin-film-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-film-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f7f7fa;
+    border-radius: 6px;
+    padding: 0.7rem 1.2rem;
+    margin-bottom: 0.7rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.admin-film-title {
+    font-weight: 500;
+    color: #232228;
+}
+
+.admin-film-delete {
+    background: #f50057;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.4rem 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.admin-film-delete:hover {
+    background: #d6006b;
+}
+
+@media (max-width: 700px) {
+    main {
+        padding: 1rem 0.5rem;
+    }
+
+    .admin-tabs {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .admin-content {
+        padding: 1rem 0.5rem;
+    }
+}
